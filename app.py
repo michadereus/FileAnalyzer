@@ -2,6 +2,7 @@ from flask import Flask
 from routes.home import home_bp
 import util.config as config
 
+
 app = Flask(__name__)
 
 app.register_blueprint(home_bp)

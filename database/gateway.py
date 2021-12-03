@@ -20,20 +20,22 @@ class gateway():
 
     def test_gate(self):
         try:
-            self.cur.execute("SELECT * FROM test")
+            self.cur.execute("SELECT * FROM User")
         except:
-            return json.dumps([{"message":"not found"}]), 400
-        table = []
-        for (test1) in self.cur:
-            table.append({"test_var":test1})
+            return json.dumps([{"message":"database connection failed"}]), 400
+        # table = [{"aasdasd":"asdas"}]
+        # for (user_id) in self.cur:
+        #     table.append({111:user_id})
+        # out = self.cur.fetchone()
         self.db.close()
-        return json.dumps(table), 200
-
-    def close_gate(self):
-        self.db.close()
+        return json.dumps([{"message":"database connection success"}]), 200
 
     def get_file(self, key):
+
         pass
 
     def post_file(self, key):
         pass
+
+    def close_gate(self):
+        self.db.close()

@@ -11,7 +11,6 @@ home_bp = Blueprint('home_bp', __name__)
 @home_bp.route('/home', methods=['GET'])
 def homepage():
     gate = Gateway()
-
     # GET - return dict full of property data in order
     if request.method == 'GET':
         res,code = gate.test_gate()
