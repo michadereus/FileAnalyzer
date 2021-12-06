@@ -19,7 +19,7 @@ const Navbar = () => {
         <a>protect yourself from malicious files online </a>
         <NavLink
             id = "login-button"
-            to="/about"
+            to="/login"
         >
             Login
         </NavLink>

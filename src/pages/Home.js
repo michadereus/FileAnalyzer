@@ -1,29 +1,39 @@
 import React from "react";
-import Button from 'react-bootstrap/Button';
+import { NavLink } from "react-router-dom";
 
-const Home = () => (
-  <div class="container-text-center">
-   <form>
-    <input type="file" name="name" />
-    <input type="submit" value="Submit" />
-    <br></br>
-    Files uploaded are saved to our databases, we do not sell or
-    <br></br>
-    give your personal data or files to any third party organization
-    <br></br>
-    <input
-      name="isGoing"
-      type="checkbox"
-      //checked={this.state.isGoing}
-       />
-    I understand
-   </form>
-   
-  </div>
-);
+const Home = () => {
+  return (
+    <div className="container-text-center">
+    <div className="test">
+      this is test text 
+      </div> 
+    <form>
+      <input type="file" name="name" />
+      <NavLink
+      to="/createAccount"
+      >
+      <input type="submit" value="Submit" />
+      </NavLink>
+      <br></br>
+      Files uploaded are saved to our databases, we do not sell or
+      <br></br>
+      give your personal data or files to any third party organization
+      <br></br>
+      <input
+        name="isGoing"
+        type="checkbox"
+        //checked={this.state.isGoing}
+        />
+      I understand
+    </form>
+    
+    </div>
+  );
+  
+};
 
 function GoToCreate(props){
-  
+
 }
 
 export default Home;
