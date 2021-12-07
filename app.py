@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from routes.home import home_bp
+from api.home import home_bp
 import util.config as config
 
 app = Flask(__name__)
