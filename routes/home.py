@@ -13,6 +13,6 @@ def homepage():
     gate = Gateway()
     # GET - return dict full of property data in order
     if request.method == 'GET':
-        res,code = gate.test_gate()
+        res,code = gate.get_file()
         return response_builder(res,code)
 

@@ -8,10 +8,8 @@ function App() {
   const url = "/home"
 
   useEffect(()=> {
-    fetch(url).then(response => {
-      if(response.status === 200){
-        return response.json()
-      }
+    fetch(url).then((response => {
+      return response.json()
     }).then(data => setState(data))
   }, [])
 
