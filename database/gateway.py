@@ -1,13 +1,16 @@
 #%%
-
 import sys
-
 sys.path.append('../')
 import util.config as config
 import mysql.connector
 import json
 import numpy as np
 import binascii
+
+def write_to_file(data, filename):
+    # Convert binary data to proper format and write it on Hard Disk
+    with open(filename, 'wb') as file:
+        file.write(data)
 
 
 class gateway():
@@ -23,36 +26,11 @@ class gateway():
         self.cur = self.db.cursor()
 
 
-    def wite_binary(self, data, filename, type):
-        print("-opening blob")
-        if type == 1:
-            print("-writing to binary file")
-            with open(filename, 'wb') as file:
-                file.write(bytearray(data))
-        else:
-            print("-writing to regular file")
-            with open(filename, 'w') as file:
-                file.write(data)
-        print("-written")
-        # with open(filename, mode='rb') as file: # b is important -> binary
-        #     content = file.read()
-        #     print(content)
-        # return content
-
-    def read_binary(self, filename):
-        print("-opening binary file")
-        with open(filename, 'rb') as file: # b is important -> binary
-            print("-reading binary file")
-            buffer = file.read()
-            print("-read")
-            for i in buffer:
-                print(i)
-
-
     def test_gate(self):
         try:
             self.cur.execute("SELECT * FROM User")
         except:
+            self.db.close()
             return json.dumps([{"message": "database connection failed"}]), 400
         # table = [{"aasdasd":"asdas"}]
         # for (user_id) in self.cur:
@@ -69,7 +47,8 @@ class gateway():
             self.cur.execute(sql, val)
             self.db.commit()
         except:
-            return json.dumps([{"User not created": "database connection failed"}]), 400
+            self.db.close()
+            return json.dumps([{"Query failed": "database connection failed"}]), 400
         self.db.close()
         return json.dumps([{"Created Id should go here": "database connection success"}]), 200
 
@@ -81,115 +60,94 @@ class gateway():
             myresult = self.cur.fetchone();
             myresult = self.cur.fetchone();
         except:
+            self.db.close()
             return json.dumps([{"Query failed": "database connection failed"}]), 400
         self.db.close()
         #TODO: check if a valid user object is returned
         return json.dumps([{"ID": str(myresult[0])}]), 200
 
         #return json.dumps([{"Permission Denied": "Invalid username or email"}]), 201
+    
+    def get_users(self):
+        # Select * FROM User
+        #TODO# test sql below and fill in fucntion
+        sql = f"Select * FROM User"
+        pass
 
-    def get_input_file(self, upload_id):
-        try:
-            self.cur.execute(f"SELECT Original_file FROM File WHERE Upload_ID = '{upload_id}'")
-            for (upload_id,csv_file,file) in self.cur:
-                file_result = file
-            # write_to_file(db_file,"data_blob")
+    def get_user(self, user_id):
+        # returns dict of single user 
+        #TODO# test sql below and fill in fucntion
+        sql = f"Select * FROM User WHERE User_Id = {user_id}"
+        pass
+
+    # PUT - UPDATES a user in the database with anew user_id value of <user_id> or a new password value of <passwrod>
+    # Only the fields to be modified need be present in the response data.
+    def put_user(self, user_id, username=None, password=None):
+        # logic to validate input format
+        if username:
+            # if username is passed, set username in db
+            #TODO# sql add update query
+            sql = "UPDATE User SET User_Id = '{user_id}' WHERE username = '{username}'"
+            self.cur.execute(sql)
+            self.db.commit()
             self.db.close()
-            return file_result, 200
-        except:
-            return "Unable to fetch input file."
-    
-    def get_csv(self, upload_id):
-        try:
-            self.cur.execute(f"SELECT * FROM File WHERE Upload_ID = '{upload_id}'")
-            record = self.cur.fetchall()
-            for (up_id,file,csv_file) in record:
-                # print(up_id,file,csv_file)
-                csv_file = csv_file.decode('utf8')
-                # bytes_array = np.frombuffer(csv_file, ndtype='B')
-                # print(bytearray())
-                # bytes_decoded = str(bytes_array).encode().decode('utf8')
-                self.db.close()
+        else:
+            res =  json.dumps([{"message": "new username format is not valid"}]), 400
+        if password:
+            # if password is passed, set username in db
+            #TODO# sql add update query
+            sql = "UPDATE User SET User_Id = '{user_id}' WHERE password = '{password}'"
+            self.cur.execute(sql)
+            self.db.commit()
+            self.db.close()
+        else:
+            res = json.dumps([{"message": "new password format is not valid"}]), 400
+        res = json.dumps([{"message": f"updated user: {str(user_id)}"}])
+        self.db.close()
+        return res, 200
+        
+    # POST - adds a user user_id to database
+    def update_user(self, user_id, username, password):
+        pass
 
-            # self.cur.close()
-            return csv_file, 200
-        except:
-            return "get csv failed", 400
+    # POST - deleted a user user_id from database
+    def delete_user(self, user_id, username, password):
+        pass
     
-    def get_files_utf8(self, upload_id):
+    # GET - returns files from user User_ID
+    def get_file(self, upload_id, og_file, csv_file):
+        og_file = None
+        csv_file = None
         try:
-            og_file = None
-            csv_file = None
             self.cur.execute(f"SELECT * FROM File WHERE Upload_ID = '{upload_id}'")
             record = self.cur.fetchall()
             for (up_id, file_blob, csv_blob) in record:
                 # print(file_blob,csv_blob)
                 csv_file = csv_blob.decode()
                 og_file = file_blob.decode()
-
-                self.db.close()
         except:
-            return json.dumps([{"Original_file":og_file, "CSV_file":csv_file}]), 400
-        return json.dumps([{"Original_file":og_file, "CSV_file":csv_file}]), 200
+            self.close_gate()
+            return json.dumps([{"message": "failed to get file(s)"}]), 400
         self.close_gate()
-    
+        return json.dumps([{"Original_file":og_file, "CSV_file":csv_file}]), 200
+        
+    # POST - updates Original_file from user User_Id 
+    def update_original_file(self, user_id, og_file):
+        pass
+
+    # POST - updates csv_file from user User_Id
+    def update_csv_file(self, user_id, csv_file):
+        pass
+
+
     def close_gate(self):
         self.db.close()
     
 
-g = gateway()
+# g = gateway()
 # g.test_gate()
-res, code =  g.get_files_utf8(13)
 
 
-# print(g.binary_file_to_data("temp_binary_file"))
-# with open("temp_binary_file", 'rb') as file: # b is important -> binary
-#     print(file.read())
-# array.array2string
-# for n in res:
-#     print(str(n).encode().decode('ASCII'))
-# print(res)
-
-# g.test_gate()
-# csvreader = csv.reader(response)
-# rows = []
-# for row in csvreader:
-#     rows.append(rows)
-# print(rows)
-
-
-    # def get_file(self, key):
-    #     pass
-    #     sql_fetch_blob_query = """SELECT * from python_employee where id = %s"""
-    #     self.cur.execute(sql_fetch_blob_query, (key))
-    #     print("Id = ", row[0], )
-    #     file = row[1]
-    #     write_file(file, bioData)
-    #     readBLOB(1, "D:\Python\Articles\my_SQL\query_output\eric_bioData.txt")
-
-    # def post_file(self, key,bioFile):
-    #     pass
-    #     sql_insert_blob_query = """ INSERT INTO Files (original_file) VALUES (%s)"""
-    #     file = convertToBinaryData(bioFile)
-    #     result = self.cur.execute(sql_insert_blob_query,file)
-    #     self.db.commit()
-        
-    # wpost_file("/Users/robg/IdeaProjects/FileAnalyzer/client/reactapp/src/pictures/README.txt")
-
-
-
-
-# %%
-
-def write_file(data, filename):
-    # Convert binary data to proper format and write it on Hard Disk
-    with open(filename, 'wb') as file:
-        file.write(data)
-
-def get_file(self, key):
-    pass
-    sql_fetch_blob_query = """SELECT * from python_employee where id = %s"""
-    self.cur.execute(sql_fetch_blob_query, (key))
 
 # print("Id = ", row[0], )
 # file = row[1]
@@ -198,20 +156,3 @@ def get_file(self, key):
 # get_file(1, "D:\Python\Articles\my_SQL\query_output\eric_photo.png",
 #     "D:\Python\Articles\my_SQL\query_output\eric_bioData.txt")
 
-def convertToBinaryData(filename):
-    # Convert digital data to binary format
-    with open(filename, 'rb') as file:
-        binaryData = file.read()
-    return binaryData
-
-def post_file(self, key, bioFile):
-    pass
-    sql_insert_blob_query = """ INSERT INTO Files (original_file) VALUES (%s)"""
-    # file = convertToBinaryData(bioFile)
-    # result = self.cur.execute(sql_insert_blob_query,file)
-    self.db.commit()
-
-# post_file("/Users/robg/IdeaProjects/FileAnalyzer/client/reactapp/src/pictures/README.txt")
-
-def close_gate(self):
-    self.db.close()
