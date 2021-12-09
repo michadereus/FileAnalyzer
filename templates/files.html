@@ -1,22 +1,22 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <Title>Files View</Title>
-</head>
-
+<html>
 <body>
-<ul>
-    {% for file in files %}
-    <li>
-        <a href="{{ (request.path + '/' if request.path != '/' else '') + file }}">
-            {{ (request.path + '/' if request.path != '/' else '') + file }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
-</body>
 
+<h1>View Files</h1>
+
+<p id="demo"></p>
+
+<script type="text/javascript">
+const directory = './FileUploads';
+const fs = require('fs');
+
+fs.readdir(directory, (err, files) => {
+    files.forEach(file => {
+        document.write(file);
+    });
+});
+
+</script>
+
+</body>
 </html>

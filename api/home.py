@@ -1,6 +1,6 @@
 import os
 import sys
-
+import re
 from werkzeug.utils import secure_filename, send_file
 
 sys.path.append('../')
@@ -84,14 +84,13 @@ def upload_file():
             file.save(path + "/" + filename)
             fileP = path + "/" + filename
 
-           # gate.save_file_paths(fileP,"",globalId);
-            return path
 
-        return 'file uploaded successfully'
+
+            return render_template('upload.html')
 
     return render_template('upload.html')
 
-@home_bp.route('/uploadedFiles', defaults={'req_path': ''})
+@home_bp.route('/uploadedFiles', defaults={'req_path': ''}, methods=['GET', 'POST'])
 @home_bp.route('/<path:req_path>')
 def dir_listing(req_path):
     BASE_DIR = 'FileUploads/' + str(globalId)
