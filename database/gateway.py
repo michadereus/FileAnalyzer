@@ -4,7 +4,7 @@ sys.path.append('../')
 import util.config as config
 import mysql.connector
 import json
-import numpy as np
+#import numpy as np
 import binascii
 
 def write_to_file(data, filename):

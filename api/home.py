@@ -64,6 +64,7 @@ def upload_file():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(filename)
-
+            file.save("FileUploads/" + filename)
+            path = "FileUploads/" + filename
+            return path
         return 'file uploaded successfully'
