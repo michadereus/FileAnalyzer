@@ -25,20 +25,6 @@ class gateway():
         )
         self.cur = self.db.cursor()
 
-
-    def test_gate(self):
-        try:
-            self.cur.execute("SELECT * FROM User")
-        except:
-            self.db.close()
-            return json.dumps([{"message": "database connection failed"}]), 400
-        # table = [{"aasdasd":"asdas"}]
-        # for (user_id) in self.cur:
-        #     table.append({111:user_id})
-        # out = self.cur.fetchone()
-        self.db.close()
-        return json.dumps([{"message": "database connection success"}]), 200
-
     # Upload a new user to DB
     def register(self, username, password):
         try:

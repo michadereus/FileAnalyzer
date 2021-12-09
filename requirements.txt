@@ -1,3 +1,4 @@
 FLASK==2.0.2
 mysql-connector-python
 json
+werkzeug

@@ -2,18 +2,16 @@ version: "3.9"
 services:
 
   server:
-    build:
-      context: ./
-      dockerfile: michaeldereus/fileanalyzer_client:2
+    build: .
+    image: "michaeldereus/fileanalyzer_client:2"
     ports:
       - 5000:5000
     environment:
       FLASK_ENV: development
 
   client:
-    build:
-      context:  ./client/reactapp/
-      dockerfile: michaeldereus/fileanalyzer_server:2
+    build: .
+    image: "michaeldereus/fileanalyzer_server:2"
     ports:
       - 3000:3000
     depends_on:
