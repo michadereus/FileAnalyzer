@@ -1,13 +1,13 @@
 import os
 import sys
 
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, send_file
 
 sys.path.append('../')
 from database.gateway import gateway as Gateway
 from util.accesss_control import validate_api_key
 from util.response_builder import response_builder
-from flask import Blueprint, request, flash, redirect, url_for
+from flask import Blueprint, request, flash, redirect, url_for, render_template
 import json
 
 UPLOAD_FOLDER = 'FileAnalyzer/fileUploads'
@@ -15,6 +15,7 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 home_bp = Blueprint('home_bp', __name__)
 
+globalId = -1;
 
 @home_bp.route('/home', methods=['GET'])
 def homepage():
@@ -37,7 +38,7 @@ def register():
         return response_builder(res, code)
 
 
-@home_bp.route('/login', methods=['POST'])
+@home_bp.route('/login', methods=['POST','GET'])
 def login():
     gate = Gateway()
     if request.method == 'POST':
@@ -45,8 +46,16 @@ def login():
         name = postDetails['name']
         passW = postDetails['pass']
 
-        res, code = gate.login(name, passW)
-        return response_builder(res, code)
+        gotID = gate.login(name,passW)
+        if gotID > -1:
+
+            global globalId
+            globalId = gotID
+            return redirect('uploader')
+        else:
+            return redirect('login')
+
+    return render_template('index.html')
 
 
 def allowed_file(filename):
@@ -55,6 +64,10 @@ def allowed_file(filename):
 
 @home_bp.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
+    print(globalId)
+    if globalId < 0:
+        return redirect('login')
+    gate = Gateway()
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -63,8 +76,37 @@ def upload_file():
 
         file = request.files['file']
         if file and allowed_file(file.filename):
+            path = "FileUploads/" + str(globalId)
+            pExist = os.path.exists(path)
+            if not pExist:
+                os.makedirs(path)
             filename = secure_filename(file.filename)
-            file.save("FileUploads/" + filename)
-            path = "FileUploads/" + filename
+            file.save(path + "/" + filename)
+            fileP = path + "/" + filename
+
+           # gate.save_file_paths(fileP,"",globalId);
             return path
+
         return 'file uploaded successfully'
+
+    return render_template('upload.html')
+
+@home_bp.route('/uploadedFiles', defaults={'req_path': ''})
+@home_bp.route('/<path:req_path>')
+def dir_listing(req_path):
+    BASE_DIR = 'FileUploads/' + str(globalId)
+
+    # Joining the base and the requested path
+    abs_path = os.path.join(BASE_DIR, req_path)
+
+    # Return 404 if path doesn't exist
+    if not os.path.exists(abs_path):
+        return "No files uploaded"
+
+    # Check if path is a file and serve
+    if os.path.isfile(abs_path):
+        return send_file(abs_path)
+
+    # Show directory contents
+    files = os.listdir(abs_path)
+    return render_template('files.html', files=files)

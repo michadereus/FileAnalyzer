@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../')
-from database.gateway import gateway as Gateway
+from database.gateway import gateway as Gateway, gateway
 from util.accesss_control import validate_api_key
 from util.response_builder import response_builder
 from flask import Blueprint, request

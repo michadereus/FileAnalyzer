@@ -1,0 +1,183 @@
+;2021_01;  CS3853: Computer Architecture: (01T) ---> Exam#2_B:  TimeLimit: 50 minutes  ---  Version  1.06
+
+
+
+QUESTIONS:  (26)  Total Points:  ( 90.0)
+
+1. <13 pts> Given 16 MB of physical memory (24 bit), and a direct-mapped cache that is 32 KB with 8-byte blocks, answer the following questions:
+
+   1.a. (  4.0 pts) How many blocks in the cache?
+
+
+   1.b. (  3.0 pts) Assume there are 12 bits in the index, how many bits in the tag?
+
+
+   1.c. (  3.0 pts) Assume there are 12 bits in the index, and suppose the address 0x02F443 accesses the cache, what is the index in hexadecimal? Hint: Breakdown in binary.
+
+
+   1.d. (  3.0 pts) With a 32-bit data bus, how many memory read cycles required on a cache miss?
+
+
+
+2. <12 pts> Our cache has 4 byte blocks. We do a strcpy of this string: "Hello, I love you, won't you tell me your name?" Length = 47 bytes, and don't forget the NULL terminator, so 48 bytes (0x30).  Destination address is 0x400, source address is 0x502.
+
+   2.a. (  3.0 pts) How many cache rows will be accessed by writing the destination addresses?
+
+
+   2.b. (  3.0 pts) Assuming all valid bits in the cache are initially zero, how many hits will occur based on accessing the destination addresses?
+
+
+   2.c. (  3.0 pts) How many cache rows will be accessed by reading the source addresses?
+
+
+   2.d. (  3.0 pts) IF the cache blocks are 32 bytes instead of 4, how many hits based solely on writing the destination addresses?
+
+
+
+3. <8 pts> Using the included CMOS circuit from the .png file included with this exam:
+
+   3.a. (  4.0 pts) If both inputs are a one, the output is  _____ .
+
+
+   3.b. (  4.0 pts) What is its overall function?
+
+
+
+4. <12 pts> Referencing the Virtual Memory/Cache diagram in slide #8, and GIVEN: 
+\Virtual Address Space:32 bits (4K page size)
+\Physical Memory: 8GB
+\Cache: 512 KB, 8-way set associative, block size 16 bytes
+\TLB: 16 rows
+
+   4.a. (  3.0 pts) Given the Physical Address 0x1F2DB72CA. What is the physical page number?
+
+
+   4.b. (  3.0 pts) For Virtual Address 0x0005F2CA, what is the index in the TLB?
+
+
+   4.c. (  3.0 pts) How many bits for the index into the cache?
+
+
+   4.d. (  3.0 pts) Virtual Address 0x0005F2CA maps to Physical Address 0x1F2DB72CA. Which row in the cache is accessed?
+
+
+
+
+;  ***** OPEN POOL *****  [#1]
+{
+
+5. <9 pts> Given a 24 bit virtual address space and 128 GB of physical memory, and a 4KB page size, answer the following questions: 
+
+   5.a. (  3.0 pts) How many bits required for the page number in the page table?
+
+
+   5.b. (  3.0 pts) How many rows would be required by the page table - assume it is the simple implementation we have discussed in class.
+
+
+   5.c. (  3.0 pts) Suppose we add a TLB that can hold 128 entries. How many bits required for the tag?
+
+
+
+6. <9 pts> Given a 25 bit virtual address space and 64 GB of physical memory, and a 4KB page size, answer the following questions: 
+
+   6.a. (  3.0 pts) How many bits required for the page number in the page table?
+
+
+   6.b. (  3.0 pts) How many rows would be required by the page table - assume it is the simple implementation we have discussed in class.
+
+
+   6.c. (  3.0 pts) Suppose we add a TLB that can hold 128 entries. How many bits required for the tag?
+
+
+
+7. <9 pts> Given a 26 bit virtual address space and 32 GB of physical memory, and a 4KB page size, answer the following questions: 
+
+   7.a. (  3.0 pts) How many bits required for the page number in the page table?
+
+
+   7.b. (  3.0 pts) How many rows would be required by the page table - assume it is the simple implementation we have discussed in class.
+
+
+   7.c. (  3.0 pts) Suppose we add a TLB that can hold 128 entries. How many bits required for the tag?
+
+
+
+}
+;  ***** CLOSE POOL *****  [#1]
+
+
+
+;  ***** OPEN POOL *****  [#2]
+{
+
+8. <16 pts> Referring to the 853CPU schematic included with this exam, show the control signals required to execute each instruction.
+
+   8.a. (  4.0 pts) mov [$9AB2], R3 - Copies the contents of Register #3 to memory address 0x9AB2
+
+
+   8.b. (  4.0 pts) jmp R1:R3 - Jumps to the address stored in R1 (high byte) and R3 (low byte)
+
+
+   8.c. (  4.0 pts) mov R1:R2, $1A57 - Copies the immediate value 0x1A57 to R1 (=0x1A) and R2 (=0x57)
+
+
+   8.d. (  4.0 pts) and R3,R0 - Logical AND the contents of R3 with R0 and store the result in R3. R3=R3^R0
+
+
+
+9. <16 pts> Referring to the 853CPU schematic included with this exam, show the control signals required to execute each instruction.
+
+   9.a. (  4.0 pts) mov [$9AB2], R2 - Copies the contents of Register #2 to memory address 0x9AB2
+
+
+   9.b. (  4.0 pts) jmp R2:R0 - Jumps to the address stored in R2 (high byte) and R0 (low byte)
+
+
+   9.c. (  4.0 pts) mov R3:R1, $1A57 - Copies the immediate value 0x1A57 to R3 (=0x1A) and R1 (=0x57)
+
+
+   9.d. (  4.0 pts) xor R2,R1 - Logical Exclusive-Or the contents of R2 with R1 and store the result in R2. R2=R2^R1
+
+
+
+}
+;  ***** CLOSE POOL *****  [#2]
+
+
+
+;  ***** OPEN POOL *****  [#3]
+{
+
+10. <12 pts> Referring to the 853CPU schematic included with this exam, answer the following questions:
+
+   10.a. (  4.0 pts) push R1 - Decrements SP by 2 and then copies the contents of R1 to the stack. SP=SP-2, mov [SP],R1
+
+
+   10.b. (  4.0 pts) inc R0 - Increments the value in R0 by one. Hint: Think a little.
+
+
+   10.c. (  4.0 pts) mov SP, $2C00 - Copies the literal value of $2C00 to the Stack Pointer
+
+
+
+11. <12 pts> Referring to the 853CPU schematic included with this exam, answer the following questions:
+
+   11.a. (  4.0 pts) push R3 - Decrements SP by 2 and then copies the contents of R3 to the stack. SP=SP-2, mov [SP],R3
+
+
+   11.b. (  4.0 pts) inc R2 - Increments the value in R2 by one. Hint: Think a little.
+
+
+   11.c. (  4.0 pts) mov SP, $5D00 - Copies the literal value of $5D00 to the Stack Pointer
+
+
+
+}
+;  ***** CLOSE POOL *****  [#3]
+
+
+12. (  4.0 pts) 853CPU: Given the following set of signals, write the instruction that is being implemented. U112=1, U113=2, U116=3, R/W=R, U118A=5, U114A=3
+
+
+13. (  4.0 pts) 853CPU: Malware might write code to the stack. Show the select signals to do a jmp SP.  Hint #1: This is NOT a return, that would be jmp [SP]. Ok, fine. Hint #2: Since this is malware we can break the usual "rule" of not affecting registers which are not specified.
+

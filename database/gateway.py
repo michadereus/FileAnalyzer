@@ -58,13 +58,17 @@ class gateway():
             val = (username, password)
             self.cur.execute(sql, val)
             myresult = self.cur.fetchone();
-            myresult = self.cur.fetchone();
         except:
             self.db.close()
-            return json.dumps([{"Query failed": "database connection failed"}]), 400
+            return -2
         self.db.close()
-        #TODO: check if a valid user object is returned
-        return json.dumps([{"ID": str(myresult[0])}]), 200
+
+        if myresult is not None:
+            ret = myresult[0]
+            print(ret)
+            return ret
+        else:
+            return -1
 
         #return json.dumps([{"Permission Denied": "Invalid username or email"}]), 201
     
@@ -130,8 +134,21 @@ class gateway():
             return json.dumps([{"message": "failed to get file(s)"}]), 400
         self.close_gate()
         return json.dumps([{"Original_file":og_file, "CSV_file":csv_file}]), 200
-        
-    # POST - updates Original_file from user User_Id 
+
+    def save_file_paths(self,fileP,csvP,userId):
+        try:
+            sql = "INSERT INTO File_Path (file_path,csv_path,user_id) VALUES(%s,%s,%i)"
+            val = (fileP, csvP,userId)
+            self.cur.execute(sql, val)
+            self.db.commit()
+        except:
+            self.db.close()
+            return -1
+        self.db.close()
+        return 0
+
+
+    #POST - updates Original_file from user User_Id
     def update_original_file(self, user_id, og_file):
         pass
 
