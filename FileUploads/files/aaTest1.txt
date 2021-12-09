@@ -1,0 +1,13 @@
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc fringilla arcu congue metus aliquam mollis.
+Mauris nec maximus purus. Maecenas sit amet pretium tellus.
+Quisque at dignissim lacus.
+yyyy-M-d — Example: 2013-6-23
+M/d/yyyy — Example: 6/23/2013
+d/M/yyyy — Example: 23/6/2013
+dd.MM.yyyy — Example: 23.06.2013
+dd/MM/yyyy — Example: 23/06/2013
+yyyy/M/d — Example: 2013/6/23
+yyyy-MM-dd — Example: 2013-06-23
+yyyyMMddTHH:mmzzz — Example: 20130623T13:22-0500
+You can enter a format that reflects your data, using any of the following element

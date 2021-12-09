@@ -38,20 +38,23 @@ class gateway():
         self.db.close()
         return json.dumps([{"Created Id should go here": "database connection success"}]), 200
 
-    def login(self,username,password):
+    def login(self, username, password):
         try:
             sql = "Select * FROM User WHERE Username = %s AND Password = %s"
             val = (username, password)
             self.cur.execute(sql, val)
             myresult = self.cur.fetchone();
-            myresult = self.cur.fetchone();
         except:
             self.db.close()
-            return json.dumps([{"Query failed": "database connection failed"}]), 400
+            return -2
         self.db.close()
-        #TODO: check if a valid user object is returned
-        return json.dumps([{"ID": str(myresult[0])}]), 200
 
+        if myresult is not None:
+            ret = myresult[0]
+            print(ret)
+            return ret
+        else:
+            return -1
         #return json.dumps([{"Permission Denied": "Invalid username or email"}]), 201
     
     def get_users(self):

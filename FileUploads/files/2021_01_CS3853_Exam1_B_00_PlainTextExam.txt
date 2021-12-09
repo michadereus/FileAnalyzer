@@ -1,0 +1,278 @@
+;2021_01;  CS3853: Computer Architecture: (01T) ---> Exam#1_B:  TimeLimit: 60 minutes  ---  Version  1.06
+
+
+
+QUESTIONS:  (30)  Total Points:  ( 80.0)
+
+
+;  ***** OPEN POOL *****  [#1]
+{
+
+1. <12 pts> Given: A 16-way set associative cache with 16 bytes per block: 
+\  (tag: 6 bits, index: 10 bits, block offset: 4 bits)
+
+   1.a. (  3.0 pts) How many blocks in each row?
+
+
+   1.b. (  3.0 pts) How many total bytes of data can be stored in each row?
+
+
+   1.c. (  3.0 pts) How large is the cache in bytes? (Format: power of two OR bytes or KB or MB.)
+
+
+
+2. <12 pts> Given: A 16-way set associative cache with 8 bytes per block: 
+\  (tag: 6 bits, index: 7 bits, block offset: 3 bits)
+
+   2.a. (  3.0 pts) How many blocks in each row?
+
+
+   2.b. (  3.0 pts) How many total bytes of data can be stored in each row?
+
+
+   2.c. (  3.0 pts) How large is the cache in bytes? (Format: power of two OR bytes or KB or MB.)
+
+
+
+}
+;  ***** CLOSE POOL *****  [#1]
+
+
+
+;  ***** OPEN POOL *****  [#2]
+{
+
+3. <9 pts> Given: A 8-way set associative cache with 16 bytes per block: 
+\  (tag: 8 bits, index: 11 bits, block offset: 4 bits)
+
+   3.a. (  3.0 pts) How large is the physical memory it is caching?
+
+
+   3.b. (  3.0 pts) How many tags are possible for any given block? (Power of two or number.)
+
+
+   3.c. (  3.0 pts) How many rows in this cache?
+
+
+
+4. <9 pts> Given: A 8-way set associative cache with 16 bytes per block: 
+\  (tag: 9 bits, index: 11 bits, block offset: 4 bits)
+
+   4.a. (  3.0 pts) How large is the physical memory it is caching?
+
+
+   4.b. (  3.0 pts) How many tags are possible for any given block? (Power of two or number.)
+
+
+   4.c. (  3.0 pts) How many rows in this cache?
+
+
+
+5. <9 pts> Given: A 8-way set associative cache with 16 bytes per block: 
+\  (tag: 8 bits, index: 12 bits, block offset: 4 bits)
+
+   5.a. (  3.0 pts) How large is the physical memory it is caching?
+
+
+   5.b. (  3.0 pts) How many tags are possible for any given block? (Power of two or number.)
+
+
+   5.c. (  3.0 pts) How many rows in this cache?
+
+
+
+6. <9 pts> Given: A 8-way set associative cache with 16 bytes per block: 
+\  (tag: 9 bits, index: 12 bits, block offset: 4 bits)
+
+   6.a. (  3.0 pts) How large is the physical memory it is caching?
+
+
+   6.b. (  3.0 pts) How many tags are possible for any given block? (Power of two or number.)
+
+
+   6.c. (  3.0 pts) How many rows in this cache?
+
+
+
+}
+;  ***** CLOSE POOL *****  [#2]
+
+
+
+;  ***** OPEN POOL *****  [#3]
+{
+
+7. <6 pts> Given tag=12 bits, index=8 bits, block offset = 4 bits, and the address is 0xF2198D.
+
+   7.a. (  2.0 pts) What is the block offset?
+
+
+   7.b. (  2.0 pts) What is the index?
+
+
+   7.c. (  2.0 pts) What is the tag?
+
+
+
+8. <6 pts> Given tag=12 bits, index=8 bits, block offset = 4 bits, and the address is 0x78CD51.
+
+   8.a. (  2.0 pts) What is the block offset?
+
+
+   8.b. (  2.0 pts) What is the index?
+
+
+   8.c. (  2.0 pts) What is the tag?
+
+
+
+9. <6 pts> Given tag=12 bits, index=8 bits, block offset = 4 bits, and the address is 0x3B2C98.
+
+   9.a. (  2.0 pts) What is the block offset?
+
+
+   9.b. (  2.0 pts) What is the index?
+
+
+   9.c. (  2.0 pts) What is the tag?
+
+
+
+10. <6 pts> Given tag=12 bits, index=8 bits, block offset = 4 bits, and the address is 0x4BB4C4.
+
+   10.a. (  2.0 pts) What is the block offset?
+
+
+   10.b. (  2.0 pts) What is the index?
+
+
+   10.c. (  2.0 pts) What is the Tag?
+
+
+
+}
+;  ***** CLOSE POOL *****  [#3]
+
+
+
+;  ***** OPEN POOL *****  [#4]
+{
+
+11. <12 pts> Given tag=4 bits, index=8 bits, block offset=2 bits, and the address is 0x2A97
+\   Hint: break the address up into binary to solve.
+
+   11.a. (  3.0 pts) What is the block offset?
+
+
+   11.b. (  3.0 pts) What is the index?
+
+
+   11.c. (  3.0 pts) What is the tag?
+
+
+   11.d. (  3.0 pts) What is the maximum possible address of the memory being cached, in hex, given the parameters above?
+
+
+
+12. <12 pts> Given tag=4 bits, index=8 bits, block offset=2 bits, and the address is 0x15CE
+\   Hint: break the address up into binary to solve.
+
+   12.a. (  3.0 pts) What is the block offset?
+
+
+   12.b. (  3.0 pts) What is the index?
+
+
+   12.c. (  3.0 pts) What is the tag?
+
+
+   12.d. (  3.0 pts) What is the maximum possible address of the memory being cached, in hex, given the parameters above?
+
+
+
+}
+;  ***** CLOSE POOL *****  [#4]
+
+
+13. <4 pts> A cache has 4096 (4K) blocks and 12 bits in the tag. It uses a valid bit, a dirty bit, and 2 bits for performance tracking.
+
+   13.a. (  2.0 pts) What is the size, in bytes, of the overhead required to physically build this cache?
+
+
+   13.b. (  2.0 pts) If the block size is 16 bytes, how large is this cache? (How much data does it hold?)
+
+
+
+14. <12 pts> Given a tag size = 6 bits, index = 12 bits, block offset = 4 bits a 2-way set associative cache, and this list of addresses and read size, answer the following questions. Assume the cache is completely empty.
+\   ***
+\   NOTE: All answers in hex, no need to use the "ox" indicator, just the hex digits.
+\   ***
+\      (len)  Address        Tag   V  Index1   V  Index2
+\   #1 (4)    0x35A2EC       |     0  |        0  | 
+\   #2 (5)    0x2BA2EC       |     0  |        0  | 
+\   #3 (4)    0x35A2DE       |     0  |        0  | 
+\   #4 (7)    0x3532DA       |     0  |        0  | 
+\   #5 (4)    0x35A2DE       |     0  |        0  | 
+\   #6 (9)    0x1932D8       |     0  |        0  | 
+
+   14.a. (  2.0 pts) In line #1, 4 bytes are required but the cache is empty, so the data comes from main memory. How many bytes must be written to the cache?
+
+
+   14.b. (  2.0 pts) The address at Line #2 is accessed, is it a hit or miss?
+
+
+   14.c. (  2.0 pts) Then the address at Line #3 is accessed. Which cache rows are accessed? There are two. Format: row1,row2
+
+
+   14.d. (  2.0 pts) Line #3 results in one miss and one hit. What is the full address of the hit?
+
+
+   14.e. (  2.0 pts) Line #5 results in a replace. What are the tag and index values that determine this? 
+
+
+
+15. <12 pts> Given: Cache with tag:4 bits, index: 8 bits, block offset: 4 bits. Direct mapped. We have the following C code:  memcpy(0x4800, 0x5A8C, 0x30). Copy 0x30 bytes from 0x5A8C to 0x4800 1 byte at a time. (Hint: Think about all addresses accessed, both source and destination.)
+
+   15.a. (  3.0 pts) How many rows in the cache are accessed?
+
+
+   15.b. (  3.0 pts) Assuming the cache is initially empty, how many compulsory misses will occur based on the source address ONLY?
+
+
+   15.c. (  3.0 pts) Assuming the cache is initially empty, how many cache hits will happen based on the destination ONLY?
+
+
+
+16. <9 pts> Fred upgraded his computer with a faster graphics card. The graphics on his video game are now smooth because rendering is done in 50 microseconds instead of 80 microseconds.
+
+   16.a. (  3.0 pts) What is the overall speedup?
+
+
+   16.b. (  3.0 pts) Graphics are 70% of the processing time, therefore, what is the speedup of the enhancement? (2 decimal places)
+
+
+   16.c. (  3.0 pts) ASSUME that the enhanced speedup calculated prior is 2. Fred plays a different game that only uses graphics 20% of the time. What is the overall speedup for that application?
+
+
+
+17. (  3.0 pts) If an enhancement is used only 50% of the time, what is the maximum possible overall speedup? (Hint: Speedup of enhancement is infinite.)
+
+
+18. <9 pts> CPI Table:
+\Instruction Type:   Frequency:    CPI:
+\--------------------------------------
+\Memory Accesses     20%           10
+\ALU                 35%           5
+\Branches            30%           7
+\Other               15%           8
+
+   18.a. (  3.0 pts) What is the CPI of this machine?
+
+
+   18.b. (  3.0 pts) An instruction cache reduces CPI by 3 for ALU, Branches, and other instructions. A data cache lowers the memory access CPI to 6. What is the new CPI of this machine?
+
+
+   18.c. (  3.0 pts) ASSUME the CPI of the first machine was 7 and the CPI of the improved machine is 4, what is the overall speedup?
+
+
+

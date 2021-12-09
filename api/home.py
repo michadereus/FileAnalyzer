@@ -7,7 +7,7 @@ sys.path.append('../')
 from database.gateway import gateway as Gateway
 from util.accesss_control import validate_api_key
 from util.response_builder import response_builder
-from flask import Blueprint, request, flash, redirect, url_for
+from flask import Blueprint, request, flash, redirect, url_for, render_template
 import json
 
 UPLOAD_FOLDER = 'FileAnalyzer/fileUploads'
@@ -28,7 +28,8 @@ home_bp = Blueprint('home_bp', __name__)
 #         return response_builder(res, code)
 
 
-@home_bp.route('/login', methods=['POST'])
+
+@home_bp.route('/login', methods=['POST','GET'])
 def login():
     gate = Gateway()
     if request.method == 'POST':
@@ -36,9 +37,16 @@ def login():
         name = postDetails['name']
         passW = postDetails['pass']
 
-        res, code = gate.login(name, passW)
-        return response_builder(res, code)
+        gotID = gate.login(name,passW)
+        if gotID > -1:
 
+            global globalId
+            globalId = gotID
+            return redirect('file/uploader')
+        else:
+            return redirect('login')
+
+    return render_template('index.html')
 
 
 
